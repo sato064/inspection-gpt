@@ -9,3 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run:  echo pull-request opened
+      - name: testing API
+        run: |
+        curl -X post -d "zipcode=184-0015" https://zipcloud.ibsnet.co.jp/api/search
