@@ -2,7 +2,7 @@ name: Pull request demo
 run-name: ${{ github.actor }} is testing now
 on: 
   pull_request:
-  types: [opened, reopend]
+    types: [opened, reopend]
 
 jobs:
   Explore-GitHub-Actions:
