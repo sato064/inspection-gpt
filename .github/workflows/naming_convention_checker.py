@@ -63,6 +63,7 @@ with open('docs/class_diagram_template.md') as f:
             # print(line[4:][:-1])
             if not is_pascalcase(line[4:][:-1]):
                 print(str(num) +"行目の " + line[4:][:-1] +" がパスカルケースになっていません")
+                subprocess.call('gh pr comment ${{ github.event.number }} --body "' + str(num) +"行目のクラス名 " + line[4:][:-1] +' がパスカルケースになっていません"')
         if not line.startswith("|") and field_flag:
             field_flag = False
         if line.startswith("|フィールド名"):
@@ -72,3 +73,4 @@ with open('docs/class_diagram_template.md') as f:
         if line.startswith("|") and not line.startswith("|フィールド名") and field_flag:
             if not is_cammelcase(line[1:].split('|')[0]):
                 print(str(num) +"行目の " + line[1:].split('|')[0] +" がキャメルケースになっていません")
+                subprocess.call('gh pr comment ${{ github.event.number }} --body "' + str(num) +"行目のフィールド名 " + line[1:].split('|')[0] +' がキャメルケースになっていません"')
