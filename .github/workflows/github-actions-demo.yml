@@ -1,13 +1,20 @@
-name: Pull request demo
-run-name: ${{ github.actor }} is testing now
-on: 
+name: 命名規則検査
+
+on:
   pull_request:
-    types: [opened, reopend]
+    types: [opened, reopened, labeled ]
 
 jobs:
-  Explore-GitHub-Actions:
+  scan:
+    if: ${{ github.event.label.name == 'bug' }}
     runs-on: ubuntu-latest
+    env:
+      PR_NUMBER: ${{ github.event.number }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - name: testing API
-        run: |
-          curl -X post -d "zipcode=184-0015" https://zipcloud.ibsnet.co.jp/api/search
+    - uses: actions/checkout@v2
+    - name: 命名規則の検査開始
+      run: |
+        pip install pyspellchecker
+        python3 .github/workflows/naming_convention_checker.py
+        gh pr comment ${{ github.event.number }} --body "Hi from GitHub CLI"
