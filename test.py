@@ -4,3 +4,5 @@ load_dotenv()
 
 print("Hello dev!!!")
 print(os.getenv("OPENAI_KEY"))
+
+hi
